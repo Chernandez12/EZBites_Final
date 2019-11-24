@@ -16,12 +16,11 @@ const CategoryGridTile = props => {
   }
   return (
     <View style={styles.gridItem}>
-      <TouchableCmp style={{flex: 1}} onPress={props.onSelect}>
-        <View style={{ ...styles.container, ...{ backgroundColor: props.color } }}>
-          <Text
-            adjustFontSizeToFit
-            style={styles.title}
-            numberOfLines={2}>
+      <TouchableCmp style={{ flex: 1 }} onPress={props.onSelect}>
+        <View
+          style={{ ...styles.container, ...{ backgroundColor: props.color } }}
+        >
+          <Text style={styles.title} numberOfLines={2}>
             {props.title}
           </Text>
         </View>
@@ -36,10 +35,11 @@ const styles = StyleSheet.create({
     margin: 15,
     height: 150,
     borderRadius: 10,
-    overflow: Platform.OS == 'android' && Platform.Version >= 21
-    ? 'hidden'
-    : 'visible',
-    elevation: 5,
+    overflow:
+      Platform.OS === 'android' && Platform.Version >= 21
+        ? 'hidden'
+        : 'visible',
+    elevation: 5
   },
   container: {
     flex: 1,
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'open-sans-bold',
     fontSize: 22,
-    textAlign: 'right',
+    textAlign: 'right'
   }
 });
 
