@@ -9,6 +9,8 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
+import LoginScreen from '../screens/LoginScreen';
+import SignupScreen from '../screens/SignupScreen';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
@@ -27,8 +29,22 @@ const defaultStackNavOptions = {
     fontFamily: 'open-sans'
   },
   headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
-  headerTitle: 'A Screen'
+  headerTitle: 'Welcome To EZBites'
 };
+
+const authNavigator = createStackNavigator(
+  {
+    Login: {
+      screen: LoginScreen
+    },
+    Signup: {
+      screen: SignupScreen
+    }
+  },
+  {
+    defaultNavigationOptions: defaultStackNavOptions
+  }
+);
 
 const MealsNavigator = createStackNavigator(
   {
@@ -52,7 +68,6 @@ const FavNavigator = createStackNavigator(
     MealDetail: MealDetailScreen
   },
   {
-    // initialRouteName: 'Categories',
     defaultNavigationOptions: defaultStackNavOptions
   }
 );
