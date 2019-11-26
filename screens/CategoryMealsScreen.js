@@ -4,7 +4,7 @@ import { CATEGORIES, MEALS } from '../data/dummy-data';
 import MealList from '../components/MealList';
 
 const CategoryMealScreen = props => {
-  
+
   const catId = props.navigation.getParam('categoryId');
 
   const displayedMeals = MEALS.filter(
