@@ -3,37 +3,30 @@ import { View, Text, Button, StyleSheet, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Colors from '../constants/Colors';
 
-const SignupScreen = props => {
+const PostScreen = props => {
   return (
-    <View style={styles.container}>
-      <Text>Signup for Free</Text>
-        {/* <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}> */}
+    <View style={styles.screen}>
         <TextInput
           style = {styles.border}
-          onChangeText = {console.log('Changed Email')}
-          placeholder = 'Email'
+          onChangeText = {console.log('Changed Dish')}
+          placeholder = 'Name of Dish'
         />
         <TextInput
           style = {styles.border}
-          onChangeText = {console.log('Changed Password')}
-          placeholder = 'Password'
-        />
-        <TextInput
-          style = {styles.border}
-          onChangeText = {console.log('Verified Password')}
-          placeholder = 'Confirm Password'
+          onChangeText = {console.log('Changed Category')}
+          placeholder = 'Category List'
         />
         <TouchableOpacity
           color={'white'}
           style={styles.mainButton}
           onPress={() => props.navigation.navigate({routeName: 'Categories'})}>
-          <Text style={{color: 'white'}}>Signup</Text>
+          <Text style={{color: 'white'}}>Login</Text>
         </TouchableOpacity>
-        <Text style={{marginTop: 20}}>or</Text>
+        <Text style = {{marginTop: 20}}>or</Text>
         <TouchableOpacity
           style = {styles.loginButton}
-          onPress = {() => props.navigation.replace({routeName: 'Login'})}>
-          <Text>Login</Text>
+          onPress = {() => props.navigation.replace({routeName: 'Signup'})}>
+          <Text>Signup</Text>
         </TouchableOpacity>
     </View>
   );
@@ -47,21 +40,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10
   },
-  loginButton: {
-    marginTop: 20,
-    paddingVertical: 10,
-    alignItems: 'center',
-    borderColor: 'grey',
-    borderWidth: 1,
-    borderRadius: 5,
-    width: 200
-  },
   mainButton: {
     marginTop: 20,
     paddingVertical: 10,
     alignItems: 'center',
     backgroundColor: Colors.accentColor,
     borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 5,
+    width: 200
+  },
+  loginButton: {
+    marginTop: 20,
+    paddingVertical: 10,
+    alignItems: 'center',
+    borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 5,
     width: 200
@@ -74,13 +67,7 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderBottomWidth: 1,
     textAlign: 'center'
-  },
-  container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
   }
 });
 
-export default SignupScreen;
+export default PostScreen;

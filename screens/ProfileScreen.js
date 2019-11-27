@@ -4,8 +4,11 @@ import {
   Text,
   FlatList,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  TextInput
 } from 'react-native';
+import Colors from '../constants/Colors';
+
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 const ProfileScreen = props => {
@@ -43,7 +46,7 @@ const ProfileScreen = props => {
         <TouchableOpacity
           color={'white'}
           style={styles.mainButton}
-          onPress={console.log('Delted Account')}>
+          onPress={console.log('Deleted Account')}>
           <Text style={{color: 'white'}}>Delete Account</Text>
         </TouchableOpacity>
     </View>

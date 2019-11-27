@@ -19,7 +19,7 @@ const ProfileScreen = props => {
         <TouchableOpacity
           color={'white'}
           style={styles.mainButton}
-          onPress={() => props.navigation.replace({routeName: 'Categories'})}>
+          onPress={() => props.navigation.navigate({routeName: 'Categories'})}>
           <Text style={{color: 'white'}}>Login</Text>
         </TouchableOpacity>
         <Text style = {{marginTop: 20}}>or</Text>

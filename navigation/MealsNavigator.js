@@ -11,6 +11,7 @@ import { createMaterialBottomTabNavigator } from 'react-navigation-material-bott
 
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
@@ -29,7 +30,7 @@ const defaultStackNavOptions = {
     fontFamily: 'open-sans'
   },
   headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
-  headerTitle: 'Welcome To EZBites'
+  headerTitle: 'A Screen'
 };
 
 const authNavigator = createStackNavigator(
@@ -40,6 +41,15 @@ const authNavigator = createStackNavigator(
     Signup: {
       screen: SignupScreen
     }
+  },
+  {
+    defaultNavigationOptions: defaultStackNavOptions
+  }
+);
+
+const profileNavigator = createStackNavigator(
+  {
+    Profile: ProfileScreen
   },
   {
     defaultNavigationOptions: defaultStackNavOptions
@@ -96,12 +106,27 @@ const tabScreenConfig = {
       tabBarIcon: tabInfo => {
         return <Ionicons name="ios-star" size={25} color={tabInfo.tintColor} />;
       },
-      tabBarColor: Colors.accentColor,
+      tabBarColor: Colors.primaryColor,
       tabBarLabel:
         Platform.OS === 'android' ? (
           <Text style={{ fontFamily: 'open-sans-bold' }}>Favorites</Text>
         ) : (
           'Favorites'
+        )
+    }
+  },
+  Profile: {
+    screen: profileNavigator,
+    navigationOptions: {
+      tabBarIcon: tabInfo => {
+        return <Ionicons name="ios-happy" size={25} color={tabInfo.tintColor} />;
+      },
+      tabBarColor: Colors.accentColor,
+      tabBarLabel:
+        Platform.OS === 'android' ? (
+          <Text style={{ fontFamily: 'open-sans-bold' }}>Profile</Text>
+        ) : (
+          'Profile'
         )
     }
   }
@@ -130,15 +155,18 @@ const FiltersNavigator = createStackNavigator(
     Filters: FiltersScreen
   },
   {
-    // navigationOptions: {
-    //   drawerLabel: 'Filters!!!!'
-    // },
     defaultNavigationOptions: defaultStackNavOptions
   }
 );
 
 const MainNavigator = createDrawerNavigator(
   {
+    Auth: {
+      screen: authNavigator,
+      navigationOptions: {
+        drawerLabel: 'Logout'
+      }
+    },
     MealsFavs: {
       screen: MealsFavTabNavigator,
       navigationOptions: {
