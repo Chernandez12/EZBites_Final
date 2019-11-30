@@ -2,41 +2,58 @@ import React from 'react';
 import { View, Text, Button, StyleSheet, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Colors from '../constants/Colors';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { updateEmail, updatePassword, updateUserName, signup } from '../actions/user';
 
-const SignupScreen = props => {
-  return (
-    <View style={styles.container}>
-      <Text>Signup for Free</Text>
-        {/* <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}> */}
-        <TextInput
-          style = {styles.border}
-          onChangeText = {console.log('Changed Email')}
-          placeholder = 'Email'
-        />
-        <TextInput
-          style = {styles.border}
-          onChangeText = {console.log('Changed Password')}
-          placeholder = 'Password'
-        />
-        <TextInput
-          style = {styles.border}
-          onChangeText = {console.log('Verified Password')}
-          placeholder = 'Confirm Password'
-        />
-        <TouchableOpacity
-          color={'white'}
-          style={styles.mainButton}
-          onPress={() => props.navigation.navigate({routeName: 'Categories'})}>
-          <Text style={{color: 'white'}}>Signup</Text>
-        </TouchableOpacity>
-        <Text style={{marginTop: 20}}>or</Text>
-        <TouchableOpacity
-          style = {styles.loginButton}
-          onPress = {() => props.navigation.replace({routeName: 'Login'})}>
-          <Text>Login</Text>
-        </TouchableOpacity>
-    </View>
-  );
+class SignupScreen extends React.Component {
+
+  signup = async () => {
+    res = await this.props.signup()
+    // console.log(this.props.user)
+    console.log(res)
+    if(res > 0)
+      this.props.navigation.navigate('Categories')
+  }
+
+  render () {
+    return (
+      <View style={styles.container}>
+        {/* <Text>Signup for Free</Text> */}
+          {/* <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}> */}
+          <TextInput
+            style = {styles.border}
+            value = {this.props.user.username}
+            onChangeText = {(input) => this.props.updateUserName(input)}
+            placeholder = 'Username'
+          />
+          <TextInput
+            style = {styles.border}
+            value = {this.props.user.email}
+            onChangeText = {(input) => this.props.updateEmail(input)}
+            placeholder = 'Email'
+          />
+          <TextInput
+            style = {styles.border}
+            value = {this.props.user.password}
+            onChangeText = {(input) => this.props.updatePassword(input)}
+            placeholder = 'Password'
+          />
+          <TouchableOpacity
+            color={'white'}
+            style={styles.mainButton}
+            onPress = {() => this.signup() }>
+            <Text style={{color: 'white'}}>Signup</Text>
+          </TouchableOpacity>
+          {/* <Text style={{marginTop: 20}}>or</Text> */}
+          {/* <TouchableOpacity
+            style = {styles.loginButton}
+            onPress = {() => props.navigation.replace({routeName: 'Login'})}>
+            <Text>Login</Text>
+          </TouchableOpacity> */}
+      </View>
+    );
+  } 
 };
 
 const styles = StyleSheet.create({
@@ -83,4 +100,13 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SignupScreen;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ updateEmail, updatePassword, updateUserName, signup }, dispatch)  
+}
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+} 
+export default connect(mapStateToProps, mapDispatchToProps)(SignupScreen);
+// export default SignupScreen;
