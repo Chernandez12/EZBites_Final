@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ActivityIndicator } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { useScreens } from 'react-native-screens';
-
+import reducer from './reducers/index';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
+import logger from 'redux-logger';
+const middleware = applyMiddleware(thunkMiddleware, logger);
+const store = createStore(reducer, middleware);
 import MealsNavigator from './navigation/MealsNavigator';
 
 useScreens();
@@ -20,12 +26,18 @@ export default function App() {
 
   if (!fontLoaded) {
     return (
-      <AppLoading
-        startAsync={fetchFonts}
-        onFinish={() => setFontLoaded(true)}
-      />
+      <Provider store = {store}>
+        <AppLoading
+          startAsync={fetchFonts}
+          onFinish={() => setFontLoaded(true)}
+        />
+      </Provider>
     );
   }
 
-  return <MealsNavigator />;
+  return (
+    <Provider store = {store}>
+      <MealsNavigator />
+    </Provider>
+  );
 }
