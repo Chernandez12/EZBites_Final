@@ -40,7 +40,7 @@ const ProfileScreen = props => {
         <TouchableOpacity
           color={'white'}
           style={styles.mainButton}
-          onPress={console.log('Logging Out')}>
+          onPress={() => props.navigation.navigate('Login')}>
           <Text style={{color: 'white'}}>Log Out</Text>
         </TouchableOpacity>
         <TouchableOpacity
