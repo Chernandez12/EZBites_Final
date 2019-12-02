@@ -9,6 +9,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
+import Auth from '../mssql/Authentication';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -35,6 +36,9 @@ const defaultStackNavOptions = {
 
 const authNavigator = createStackNavigator(
   {
+    Auth: {
+      screen: Auth
+    },
     Login: {
       screen: LoginScreen
     },
