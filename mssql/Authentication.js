@@ -1,20 +1,19 @@
 import React from "react";
 import {
-  StyleSheet,
-  View,
-  ActivityIndicator,
-  FlatList,
-  Text,
-  TouchableOpacity
+StyleSheet,
+View,
+ActivityIndicator,
+FlatList,
+Text,
+TouchableOpacity
 } from "react-native";
-
 export default class Source extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: "Source Listing",
-      headerStyle: {backgroundColor: "#fff"},
-      headerTitleStyle: {textAlign: "center",flex: 1}
-  };
+static navigationOptions = ({ navigation }) => {
+return {
+  title: "Source Listing",
+  headerStyle: {backgroundColor: "#fff"},
+  headerTitleStyle: {textAlign: "center",flex: 1}
+ };
 };
 constructor(props) {
  super(props);
@@ -24,24 +23,23 @@ constructor(props) {
   };
 }
 componentDidMount(){
-  fetch("https://foodprepapi.azurewebsites.net/api/UserAccount")
-  .then(response => response.json())
-  .then((responseJson)=> {
-    this.setState({
-      loading: false,
-      dataSource: responseJson
-    })
+fetch("https://foodprepapi.azurewebsites.net/api/UserAccount")
+.then(response => response.json())
+.then((responseJson)=> {
+  this.setState({
+   loading: false,
+   dataSource: responseJson
   })
-  .catch(error=>console.log(error)) //to catch the errors if any
+})
+.catch(error=>console.log(error)) //to catch the errors if any
 }
-
 FlatListItemSeparator = () => {
-  return (
-    <View style={{
-      height: .5,
-      width:"100%",
-      backgroundColor:"rgba(0,0,0,0.5)",
-  }}
+return (
+  <View style={{
+     height: .5,
+     width:"100%",
+     backgroundColor:"rgba(0,0,0,0.5)",
+}}
 />
 );
 }

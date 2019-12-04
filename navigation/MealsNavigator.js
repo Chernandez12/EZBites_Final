@@ -36,9 +36,6 @@ const defaultStackNavOptions = {
 
 const authNavigator = createStackNavigator(
   {
-    // Auth: {
-    //   screen: Auth
-    // },
     Login: {
       screen: LoginScreen
     },

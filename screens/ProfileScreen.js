@@ -1,57 +1,130 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput
-} from 'react-native';
+import { ScrollView, SafeAreaView, Image, Alert, Text, StyleSheet, TouchableOpacity,TextInput, View} from 'react-native';
 import Colors from '../constants/Colors';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { updateUserName, updatePassword, getUser, login } from '../actions/user';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
 
-const ProfileScreen = props => {
+//class ProfileScreen extends React.Component{
+  /*res = {};
+  ps1;
+  ps2;
+  id;
+  token;*/
+
+  /*login = async () => {
+    res = await this.props.login()
+    // console.log(this.props.user)
+    console.log(res)
+  
+  }*/
+  
+const ProfileScreen = props =>{
   return (
     <View style={styles.screen}>
-        <Text>John Doe</Text>
-        <TextInput
-          style = {styles.border}
-          onChangeText = {console.log('Changed Email')}
-          placeholder = 'John Doe'
-          onPress={console.log('Changed name')}
+        <Image 
+          style={styles.userimage}
+          source={{uri:'https://icon-library.net/images/no-profile-picture-icon/no-profile-picture-icon-7.jpg'}}
         />
         <TextInput
           style = {styles.border}
-          onChangeText = {console.log('Changed Password')}
+          placeholder = 'Username'
+          onChangeText = {(input) => this.props.updateUserName(input)}
+          onPress={console.log('Changed name')}
+        />        
+        <TextInput 
+          style = {styles.border}
+          onChangeText = {(input) => {
+            ps1 = input;
+          }}
           placeholder = 'Password'
         />
         <TextInput
           style = {styles.border}
-          onChangeText = {console.log('Verified Password')}
+          onChangeText = {(input) => {
+            ps2 = input;
+            if(ps1 == ps2){
+              console.log('Changed Password');
+              this.props.updatePassword(input);
+            }
+            else{
+              console.log('Passwords do not match')
+            }
+          }}
           placeholder = 'Confirm Password'
         />
         <TouchableOpacity
           color={'white'}
           style={styles.mainButton}
-          onPress={() => props.navigation.replace({routeName: 'Categories'})}>
+          onPress={() => props.navigation.navigate('Categories')}>
           <Text style={{color: 'white'}}>Save Changes</Text>
         </TouchableOpacity>
         <TouchableOpacity
           color={'white'}
           style={styles.mainButton}
-          onPress={() => props.navigation.navigate('Login')}>
+          onPress={() => Alert.alert(
+            'Are you sure you want to sign out?',
+            '',
+            [
+              {
+                text: 'Yes', 
+                onPress: () => props.navigation.navigate('Login')              
+              },
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancelling'),
+                style: 'cancel'
+              }
+            ],
+            {cancelable: true}
+          )}>
           <Text style={{color: 'white'}}>Log Out</Text>
         </TouchableOpacity>
         <TouchableOpacity
+            
           color={'white'}
           style={styles.mainButton}
-          onPress={console.log('Deleted Account')}>
+          onPress= {() => Alert.alert(
+            'Are you sure you want to delete your account?',
+            '',
+            [
+              {
+                text: 'Yes', 
+                onPress: () => props.navigation.navigate('Login')
+              },
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancelling'),
+                style: 'cancel'
+              }
+            ],
+            {cancelable: true}
+          )}>
           <Text style={{color: 'white'}}>Delete Account</Text>
         </TouchableOpacity>
-    </View>
+    </View>     
   );
 };
+
+ProfileScreen.navigationOptions = navData => {
+    return {
+      headerTitle: 'John Doe',
+      headerLeft: (
+        <HeaderButtons HeaderButtonComponent={HeaderButton}>
+          <Item
+            title="Menu"
+            iconName="ios-menu"
+            onPress={() => {
+              navData.navigation.toggleDrawer();
+            }}
+          />
+        /</HeaderButtons>
+      )
+    };
+};
+
 
 const styles = StyleSheet.create({
   screen: {
@@ -60,6 +133,15 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     alignItems: 'center',
     paddingVertical: 10
+  },
+  userimage: {
+    marginTop: 20,
+    width: 100, 
+    height: 100, 
+    borderRadius: 100/ 2, 
+    paddingVertical: 10,
+    borderColor: 'white',
+    alignItems: 'center' 
   },
   loginButton: {
     marginTop: 20,
