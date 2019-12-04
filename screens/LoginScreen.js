@@ -16,7 +16,7 @@ class LoginScreen extends React.Component {
     if(res.userID > 0)
       this.props.navigation.navigate('Categories')
   }
-  
+
   componentDidMount = async () => {
     console.log(this.res)
     console.log(this.props.user)
@@ -96,12 +96,12 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ updateUserName, updatePassword, login, getUser }, dispatch)  
+  return bindActionCreators({ updateUserName, updatePassword, login, getUser }, dispatch)
 }
 const mapStateToProps = (state) => {
   return {
     user: state.user
   }
-} 
+}
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
 // export default LoginScreen;
